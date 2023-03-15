@@ -1,3 +1,11 @@
-/env/
+__pycache__/
+*.py[cod]
+*$py.class
+
+.idea/misc.xml
+/env
+*.env
 /football_fan/settings.py
-./idea
+./.idea
+
+/static/

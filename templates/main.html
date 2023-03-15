@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'uikit/styles/uikit.css' %}">
+    <link rel="stylesheet" href="styles/index.css" />
+</head>
+<body>
+{% block content %}
+<h1> Teams </h1>
+{% for team in teams %}
+    <h4> {{ team.name }}</h4>
+<img src="{{team.logo.url }}" alt="" style=max-width:150px;height:auto>
+{% endfor %}
+
+{% endblock %}
+
+</body>
+</html>
