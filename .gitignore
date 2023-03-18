@@ -3,9 +3,12 @@ __pycache__/
 *$py.class
 
 .idea/misc.xml
+./.idea
+/.idea
+
 /env
 *.env
-/football_fan/settings.py
-./.idea
 
+
+/football_fan/settings.py
 /static/
