@@ -23,8 +23,9 @@ def users_fav_teams(request):
     context = {'profile': profile, 'teams': teams}
     return render(request, 'teams/users_fav_teams.html', context)
 
-def team(request, pk):
-    team = get_object_or_404(Team, id=pk)
+
+def team(request, slug):
+    team = get_object_or_404(Team, slug=slug)
     matches = Match.objects.filter(Q(team_home=team) | Q(team_away=team))
     print(matches)
     context = {'team': team, 'matches': matches}

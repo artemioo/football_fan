@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse
 
 class Team(models.Model):
     name = models.CharField(max_length=250)
@@ -11,12 +11,21 @@ class Team(models.Model):
     stadium = models.CharField(max_length=200, null=True, blank=True)
     titles = models.TextField(null=True, blank=True)
     players_amount = models.IntegerField(null=True, blank=True)
+    slug = models.SlugField(null=True, unique=True)
+
+    class Meta:
+        ordering = ['name']
 
     def __str__(self):
         return self.name
 
-    class Meta:
-        ordering = ['name']
+    def get_absolute_url(self):
+        return reverse('team', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)
 
 
 class Match(models.Model):

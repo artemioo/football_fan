@@ -6,7 +6,7 @@
 
 {% for team in profile.favorite_teams.all %}
 <div class="card" style="width: 20rem;">
- <a href="{% url 'team' pk=team.id  %}"><img class="card-img-top" src="{{team.logo.url }}"></a>
+ <a href="{{ team.get_absolute_url }}"><img class="card-img-top" src="{{team.logo.url }}"></a>
   <div class="card-body">
     <h5 class="card-title">{{ team.name }}</h5>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
