@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <form method="get" action="{% url 'teams' %}"
+          class="form-inline my-2 my-lg-0" style="display: flex; justify-content: center;">
+      <input class="form-control mr-sm-2" type="search"
+             placeholder="Search" aria-label="Search" name="team_name">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+{% for team in team_list %}
+<div class="card" style="width: 20rem; display: inline-block;">
+ <a href="{{ team.get_absolute_url }}"><img class="card-img-top" src="{{team.logo.url }}"></a>
+  <div class="card-body">
+    <h5 class="card-title">{{ team.name }}</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="{{ team.get_absolute_url }}" class="btn btn-primary">Go somewhere</a>
+
+  </div>
+</div>
+
+{% endfor %}
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+      {% if page_obj.has_previous %}
+    <li class="page-item"><a class="page-link"
+                             href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+      {% endif %}
+    <li class="page-item"> <a class="page-link" href="#">
+        {{ page_obj.number }} </a>
+    </li>
+
+      {% if page_obj.has_next %}
+    <li class="page-item"><a class="page-link"
+                             href="?page={{ page_obj.next_page_number }}">Next</a></li>
+      {% endif %}
+  </ul>
+</nav>
+
+{% endblock %}

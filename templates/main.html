@@ -28,10 +28,10 @@
 <h1> matches </h1>
 
 {% for match in matches %}
-<div class="card" style="width: 30rem;">
+<div class="card" style="width: 40rem; display: inline-block; height:30rem;">
     <p>
         <img class="card-img-top" src="{{match.team_home.logo.url }}" style="width: 100px; margin-left: 30px;">
-      <img class="card-img-top" src="{{match.team_away.logo.url }}" style="width: 100px; margin-left: 25px;" >
+      <img class="card-img-top" src="{{match.team_away.logo.url }}" style="width: 100px; margin-left: 30px;" >
     </p>
   <div class="card-body">
     <h5 class="card-title">{{ match.team_home.name }} - {{ match.team_away.name }}</h5>

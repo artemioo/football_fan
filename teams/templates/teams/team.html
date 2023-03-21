@@ -7,6 +7,7 @@
 <img src="{{team.logo.url }}" alt="" height="200px">
     <h5>Country:  {{team.country}}</h5>
     <hr>
+
 {% for match in matches %}
    <ul>{{match.team_home.name }} <img src="{{ match.team_home.logo.url }}" alt="" height="30px"> -
         {{match.team_away.name }} <img src="{{ match.team_away.logo.url }}" alt="" height="30px">
