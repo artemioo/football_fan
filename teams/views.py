@@ -1,11 +1,15 @@
 from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
 from teams.models import Team, Match
 from users.models import Profile
+from .forms import TeamUpdateForm
+from django.contrib import admin
 
+from django.contrib.auth.decorators import login_required, permission_required
 
+from django.contrib.auth.models import User, Permission
 def main(request):
     matches = Match.objects.all()
     context = {'matches': matches}
@@ -38,7 +42,6 @@ class Teams(ListView):
         return context
 
 
-
 def team(request, slug):
     team = get_object_or_404(Team, slug=slug)
     try:
@@ -48,3 +51,17 @@ def team(request, slug):
 
     context = {'team': team, 'matches': matches}
     return render(request, 'teams/team.html', context)
+
+
+@permission_required("teams.update_team")
+def team_update(request, slug):
+    team = Team.objects.get(slug=slug)
+    form = TeamUpdateForm(instance=team)
+    if request.method == 'POST':
+            form = TeamUpdateForm(request.POST,  request.FILES, instance=team)
+            if form.is_valid():
+                form.save()
+                return redirect('teams')
+
+    context = {'form': form}
+    return render(request, 'teams/team_update.html', context)

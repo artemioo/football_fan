@@ -12,9 +12,10 @@
    <ul>{{match.team_home.name }} <img src="{{ match.team_home.logo.url }}" alt="" height="30px"> -
         {{match.team_away.name }} <img src="{{ match.team_away.logo.url }}" alt="" height="30px">
    </ul>
-
-
 {% endfor %}
+
+
+    <a href="{% url 'team_update' team.slug %}"> Update</a>
 
 </div>
 
