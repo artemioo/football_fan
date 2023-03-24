@@ -1,12 +1,13 @@
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from teams.models import Team, Match
 from users.models import Profile
 from .forms import TeamUpdateForm
-from django.contrib import admin
 
+from django.contrib import admin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
 
 from django.contrib.auth.models import User, Permission
@@ -38,19 +39,24 @@ class Teams(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(Teams, self).get_context_data(**kwargs)
         context['team_name'] = self.request.GET.get('team_name', None)
-
         return context
 
 
-def team(request, slug):
-    team = get_object_or_404(Team, slug=slug)
-    try:
-        matches = Match.objects.filter(Q(team_home=team) | Q(team_away=team))
-    except:
-        matches = None
+class TeamDetailView(PermissionRequiredMixin, DetailView):
+    # permission_required = 'teams.view_team'
+    model = Team
+    template_name = 'teams/team.html'
 
-    context = {'team': team, 'matches': matches}
-    return render(request, 'teams/team.html', context)
+    def get_context_data(self,  *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        team = context['team']
+        try:
+            matches = Match.objects.filter(Q(team_home=team) | Q(team_away=team))
+        except:
+            matches = None
+        context['matches'] = matches
+        return context
+
 
 
 @permission_required("teams.update_team")
