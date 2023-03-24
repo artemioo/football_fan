@@ -35,6 +35,7 @@ class Match(models.Model):
     tournament = models.CharField(max_length=200, blank=True, null=True)
     referee = models.CharField(max_length=200, blank=True, null=True)
     location = models.CharField(max_length=300, blank=True, null=True)
+    finished = models.BooleanField(default=0)
 
     class Meta:
         verbose_name_plural = 'Matches'
