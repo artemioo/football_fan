@@ -42,7 +42,7 @@ class Teams(ListView):
         return context
 
 
-class TeamDetailView(PermissionRequiredMixin, DetailView):
+class TeamDetailView(DetailView):
     # permission_required = 'teams.view_team'
     model = Team
     template_name = 'teams/team.html'
@@ -55,6 +55,28 @@ class TeamDetailView(PermissionRequiredMixin, DetailView):
         except:
             matches = None
         context['matches'] = matches
+
+
+        team_id = context['team'].id
+
+        if 'recently_viewed' in self.request.session:
+            if team_id in self.request.session['recently_viewed']:
+                self.request.session['recently_viewed'].remove(team_id)
+
+            teams = Team.objects.filter(pk__in=self.request.session['recently_viewed'])
+
+            self.request.session['recently_viewed'].insert(0, team_id)
+            if len(self.request.session['recently_viewed']) > 4:
+                self.request.session['recently_viewed'].pop()
+
+        else:
+            self.request.session['recently_viewed'] = [team_id]
+
+
+        self.request.session.modified = True
+
+        context['recently_viewed_products'] = teams
+
         return context
 
 

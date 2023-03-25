@@ -19,5 +19,10 @@
 
 </div>
 
+{% for team in recently_viewed_products %}
+    {{ team.name }}
+<img src="{{ team.logo.url }}" alt="" height="30px">
+
+{% endfor %}
 
 {% endblock %}
