@@ -93,3 +93,7 @@ def team_update(request, slug):
 
     context = {'form': form}
     return render(request, 'teams/team_update.html', context)
+
+
+
+

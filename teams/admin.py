@@ -5,7 +5,6 @@ from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
 
 
-
 @admin.register(Match)
 class MatchAdmin(admin.ModelAdmin):
     actions = ['make_finished', ]
