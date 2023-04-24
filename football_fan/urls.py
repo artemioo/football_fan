@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('teams.urls')),
     path('', include('users.urls')),
     path('', include('fanshop.urls')),
+    path('', include('cart.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
