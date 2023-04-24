@@ -16,9 +16,14 @@ def main(request):
     context = {'matches': matches}
     return render(request, 'main.html', context)
 
+
 def users_fav_teams(request):
-    profile = request.user.profile
-    teams = profile.favorite_teams.all()
+    try:
+        profile = request.user.profile
+        teams = profile.favorite_teams.all()
+    except:
+        profile = None
+        teams = None
     context = {'profile': profile, 'teams': teams}
     return render(request, 'teams/users_fav_teams.html', context)
 
@@ -58,6 +63,7 @@ class TeamDetailView(DetailView):
 
 
         team_id = context['team'].id
+        teams = None
 
         if 'recently_viewed' in self.request.session:
             if team_id in self.request.session['recently_viewed']:

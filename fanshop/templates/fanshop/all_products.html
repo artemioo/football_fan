@@ -3,9 +3,13 @@
 {% block content %}
 
 {% for product in products %}
-    <h2> {{product.name}}</h2>
+<div class="main" style="width: 20rem; display: inline-block; margin-left: 40px; ">
+
+    <h5> {{product.name}}</h5>
     <h6> {{product.price }}</h6>
-<br>
+<img src="{{ product.image.url }}" alt="" height="200" width="200">
+<button value="" style="">Купить</button>
+</div>
 {% endfor %}
 
 
