@@ -8,9 +8,10 @@
     <h5> {{product.name}}</h5>
     <h6> {{product.price }}</h6>
 <img src="{{ product.image.url }}" alt="" height="200" width="200">
-<button value="" style="">Купить</button>
+<button value="" style=""><a href="{% url 'add_to_cart' product.id %}">Купить</a> </button>
 </div>
 {% endfor %}
+
 
 
 {% endblock %}

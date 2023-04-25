@@ -1,6 +1,8 @@
 from decimal import Decimal
 # from django.conf
-from shop.models import Product
+# from shop.models import Product
+from fanshop.models import Product
+
 
 class Cart:
 
@@ -15,14 +17,14 @@ class Cart:
         # self.cart = cart
 
     def __iter__(self):
-        products_ids = self.cart['cart'].keys()
+        products_ids = self.cart.keys()
 
         products = Product.objects.filter(id__in=products_ids)
 
         for product in products:
             self.cart[str(product.id)]['product'] = product # создает ключ объекта и сохраняет сам объект как значение
 
-        for item in self.cart.values: #{'quantity': 0, 'price': str(product.price), 'product': product_obj}
+        for item in self.cart.values(): #{'quantity': 0, 'price': str(product.price), 'product': product_obj}
             item['price'] = Decimal(item['price'])
             item['total_price'] = item['price'] * item['quantity'] # создаю еще один ключ который хранит колво*цену
             yield item
